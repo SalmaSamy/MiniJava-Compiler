@@ -1,10 +1,6 @@
 package SentaxAnalyzer;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
-import java.util.Queue;
 
 public class Analyzer {
 	public static ArrayList<Token> tokens;
@@ -49,6 +45,7 @@ public class Analyzer {
 	public static Node addTerminalNode(String terminal){
 		Token token = Analyzer.getCurToken();
 		//TODO Analyzer.intdex--
+		
 		if (token == null || !token.name.equals(terminal))
 			return null;
 	
@@ -58,5 +55,4 @@ public class Analyzer {
 		
 		return idNode;
 	}
-	
 }

@@ -1,15 +1,15 @@
 package SentaxAnalyzer;
 
 public class Statement {
+	
 	/*
-	 * Statement = "{" Statments "}"
+	 *   Statement = "{" Statments "}"
 	 * | IfCondition
 	 * | While
-	 * |"System.out.println" "(" Expression ")" ";"
-	 * | Identifier SquareEx "=" Expression ";"
-	
-	 * SquareEx = “[“ Expression “]” | e
-	 * Statments = Statement Statments | e
+	 * | "System.out.println" "(" Expression ")" ";"
+	 * | Identifier SquareEx "="  Expression ";"
+	 *   SquareEx = “[“ Expression “]” | e
+	 *   Statments = Statement Statments | e
 	 */
 
 	public static Node valid() {
@@ -31,7 +31,7 @@ public class Statement {
 		}
 		Analyzer.index--;
 		
-		//"System.out.println" "(" Expression ")" ";"
+		// "System.out.println" "(" Expression ")" ";"
 		Node sysout = Analyzer.addTerminalNode("SYSTEM.OUT.PRINTLN");
 		if(sysout != null){
 			statement.addChild(sysout);
@@ -39,12 +39,12 @@ public class Statement {
 		}
 		Analyzer.index--;
 		
-		//Identifier SquareEx "=" Expression ";"
+		// Identifier SquareEx "=" Expression ";"
 		Node idNode = Analyzer.addTerminalNode("ID");
 		if (idNode != null) {
 			statement.addChild(idNode);
 			
-			//SquareEx = “[“ Expression “]” | e
+			// SquareEx = “[“ Expression “]” | e
 			Node LSQUARE = Analyzer.addTerminalNode("LEFT_SQUARE_B");
 			if (LSQUARE != null){
 				statement.addChild(LSQUARE);
@@ -76,16 +76,15 @@ public class Statement {
 			if(semicolon == null)
 				return null;
 			statement.addChild(semicolon);
-
 		}
 		Analyzer.index--;
 		
-		//"{" Statments "}"
+		// "{" Statments "}"
 		Node LCurl = Analyzer.addTerminalNode("LEFT_CURL_B");
 		if (LCurl != null){
 			statement.addChild(LCurl);
 			
-			//Statments = Statement Statments | e
+			// Statments = Statement Statments | e
 			Node statements = new Node("Statements");
 			while(true){
 				Node singleStatement = Statement.valid();
