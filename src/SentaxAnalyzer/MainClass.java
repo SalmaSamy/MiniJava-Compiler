@@ -5,11 +5,12 @@ public class MainClass {
 	/*
 	 MainClass = "class" Identifier "{"
 	"public" "static" "void" "main" "(" "String" "[" "]" Identifier ")"
-	"{" Stms "}""}" 
+	"{" Statements "}""}" 
 	 */
 	
 	public static Node valid(){
 		
+		int oldIndex = Analyzer.index;
 		Node mainClass = new Node("MainClass");
 		
 		String[] mainTerminals = { "class", "ID", "LEFT_CURLY_B", "public", "static",
@@ -20,7 +21,16 @@ public class MainClass {
 		for(String s : mainTerminals){
 			
 			if(s.equals("Statements")){
-				//Statments.valid();
+				Node statements = new Node("Statements");
+				while(true){
+					Node singleStatement = Statement.valid();
+					if(singleStatement == null){
+						Analyzer.index = oldIndex;
+						break;
+					}
+					statements.addChild(singleStatement);
+				}
+				mainClass.addChild(statements);
 				continue;
 			}
 			
@@ -29,6 +39,7 @@ public class MainClass {
 				return null;
 			}
 			mainClass.addChild(current);
+			oldIndex = Analyzer.index;
 		}
 		
 		return mainClass;

@@ -28,12 +28,13 @@ public class IfCondition {
 			return null;
 		ifCondition.addChild(RRound);
 		
-		//statement
+		//Statement
 		Node statement = Statement.valid();
 		if(statement == null)
 			return null;
 		ifCondition.addChild(statement);
 		
+		//ElseOption =  “else” Statement | e
 		Node elseNode = Analyzer.addTerminalNode("ELSE");
 		if(elseNode != null){
 			ifCondition.addChild(elseNode);

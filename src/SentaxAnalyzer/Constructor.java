@@ -23,7 +23,7 @@ public class Constructor{
 		if (!check)
 			Analyzer.index--;
 
-		// check if ID = class name!
+		// check if ID = class name?
 		Node idNode = Analyzer.addTerminalNode("ID");
 		if (idNode == null)
 			return null;
@@ -70,8 +70,23 @@ public class Constructor{
 		}
 		constructor.addChild(variables);
 		
-		// TODO statements
-		
+		//Statements
+		oldIndex = Analyzer.index;
+		Node statements = new Node("Statements");
+		while (true) {
+			Node singleStatement = Statement.valid();
+			if (singleStatement == null) {
+				if (statements.children.isEmpty()) {
+					statements.addChild(new Node("e"));
+				}
+				Analyzer.index = oldIndex;
+				break;
+			}
+			statements.addChild(singleStatement);
+			oldIndex = Analyzer.index;
+		}
+		constructor.addChild(statements);
+	
 
 		Node RCurlyNode = Analyzer.addTerminalNode("RIGHT_CURLY_B");
 		if (RCurlyNode == null)

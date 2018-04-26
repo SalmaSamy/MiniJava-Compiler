@@ -8,7 +8,7 @@ public class TypeMethod {
 
 	// TypeMethodDeclaration = ("public" | "private" | "protected")
 	// Static Type Identifier "(" MethodsParameters ")"
-	// "{" Variables Stms "return" Expression ";" "}"
+	// "{" Variables Statements "return" Expression ";" "}"
 
 	public static Node valid() {
 
@@ -89,7 +89,17 @@ public class TypeMethod {
 		}
 		method.addChild(variables);
 
-		// TODO statements
+		// Statements
+		Node statements = new Node("Statements");
+		while(true){
+			Node singleStatement = Statement.valid();
+			if(singleStatement == null)
+				break;
+			statements.addChild(singleStatement);
+		}
+		method.addChild(statements);
+		
+		
 		Node returnNode = Analyzer.addTerminalNode("RETURN");
 		if (returnNode == null) {
 			Analyzer.index = oldIndex;

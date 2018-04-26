@@ -40,10 +40,11 @@ public class Statement {
 		Analyzer.index--;
 		
 		//Identifier SquareEx "=" Expression ";"
-		//SquareEx = “[“ Expression “]” | e
 		Node idNode = Analyzer.addTerminalNode("ID");
 		if (idNode != null) {
 			statement.addChild(idNode);
+			
+			//SquareEx = “[“ Expression “]” | e
 			Node LSQUARE = Analyzer.addTerminalNode("LEFT_SQUARE_B");
 			if (LSQUARE != null){
 				statement.addChild(LSQUARE);
