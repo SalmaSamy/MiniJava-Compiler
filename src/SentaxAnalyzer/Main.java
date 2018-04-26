@@ -10,6 +10,7 @@ public class Main {
 	static private final String INPUT = "input.txt";
 	static private final String OUTPUT = "output.txt";
 
+	
 	public static void main(String args[]) {
 		FileInputStream instream = null;
 		PrintStream outstream = null;
@@ -34,7 +35,7 @@ public class Main {
 			code += s;
 		}
 		
-		System.out.println("Tokens:");
+		//System.out.println("Tokens:");
 		Tokenizer tokenizer = new Tokenizer();
 		ArrayList<Token> tokens = tokenizer.execute(code);
 		
