@@ -35,6 +35,27 @@ public class Statement {
 		Node sysout = Analyzer.addTerminalNode("SYSTEM.OUT.PRINTLN");
 		if(sysout != null){
 			statement.addChild(sysout);
+			
+			Node LRound = Analyzer.addTerminalNode("LEFT_ROUND_B");
+			if(LRound == null)
+				return null;
+			statement.addChild(LRound);
+			
+			Node expression = Expression.valid();
+			if(expression == null)
+				return null;
+			statement.addChild(expression);
+			
+			Node RRound = Analyzer.addTerminalNode("RIGHT_ROUND_B");
+			if(RRound == null)
+				return null;
+			statement.addChild(RRound);
+			
+			Node semicolon = Analyzer.addTerminalNode("SEMICOLON");
+			if(semicolon == null)
+				return null;
+			statement.addChild(semicolon);
+			
 			return statement;
 		}
 		Analyzer.index--;
@@ -58,24 +79,26 @@ public class Statement {
 				if (RSQUARE == null)
 					return null;
 				statement.addChild(RSQUARE);
-				return statement;
 			}
-			--Analyzer.index;
+			else
+				Analyzer.index--;
 			
 			Node equal = Analyzer.addTerminalNode("ASSIGNMENT");
 			if(equal == null)
 				return null;
 			statement.addChild(equal);
-
+			
 			Node expression = Expression.valid();
 			if (expression == null)
 				return null;
 			statement.addChild(expression);
 			
+			
 			Node semicolon = Analyzer.addTerminalNode("SEMICOLON");
 			if(semicolon == null)
 				return null;
 			statement.addChild(semicolon);
+			return statement;
 
 		}
 		Analyzer.index--;

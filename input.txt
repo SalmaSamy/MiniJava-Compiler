@@ -5,4 +5,29 @@ class Main {
 
 class IHateYou{
 
+	int salma = 1 ;
+	int salma = 2 ; 
+
+	IHateYou(){
+	
+		int lala;
+		int lala2 = 3, blabla, QQ=6;
+		
+		while(true)
+			System.out.println(4);
+	}
+	
+	public int method(int x, int y){
+	
+		int a,b=5;
+		int s = a+5-(4*4)&&x;
+		
+		a = this.length;
+		
+		if(x>5)
+		a[i] = 5;
+		
+		return a;
+	}
+
 }

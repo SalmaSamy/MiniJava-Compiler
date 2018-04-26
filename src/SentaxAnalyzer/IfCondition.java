@@ -6,7 +6,7 @@ public class IfCondition {
 	
 	public static Node valid(){
 		Node ifCondition = new Node("IfCondition");
-		
+
 		Node ifNode = Analyzer.addTerminalNode("IF");
 		if(ifNode == null)
 			return null;
@@ -28,11 +28,13 @@ public class IfCondition {
 			return null;
 		ifCondition.addChild(RRound);
 		
+		
 		//Statement
 		Node statement = Statement.valid();
 		if(statement == null)
 			return null;
 		ifCondition.addChild(statement);
+		
 		
 		//ElseOption =  “else” Statement | e
 		Node elseNode = Analyzer.addTerminalNode("ELSE");
