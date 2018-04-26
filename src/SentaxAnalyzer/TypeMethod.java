@@ -34,7 +34,7 @@ public class TypeMethod {
 			method.addChild(new Node("static"));
 		} else
 			Analyzer.index--;
-				
+
 		Node typeNode = Type.valid();
 		if (typeNode == null)
 			return null;
@@ -50,7 +50,7 @@ public class TypeMethod {
 		if (Lpran == null)
 			return null;
 		method.addChild(Lpran);
-				
+
 		oldIndex = Analyzer.index;
 		Node parameters = Parameters.valid();
 		if (parameters == null) {
@@ -59,8 +59,7 @@ public class TypeMethod {
 			Analyzer.index = oldIndex;
 		}
 		method.addChild(parameters);
-		
-		
+
 		Node RPran = Analyzer.addTerminalNode("RIGHT_ROUND_B");
 		if (RPran == null)
 			return null;
@@ -70,7 +69,6 @@ public class TypeMethod {
 		if (LCurly == null)
 			return null;
 		method.addChild(LCurly);
-
 
 		// Variables
 		oldIndex = Analyzer.index;
@@ -90,16 +88,22 @@ public class TypeMethod {
 		method.addChild(variables);
 
 		// Statements
+		oldIndex = Analyzer.index;
 		Node statements = new Node("Statements");
-		while(true){
+		while (true) {
 			Node singleStatement = Statement.valid();
-			if(singleStatement == null)
+			if (singleStatement == null) {
+				if (statements.children.isEmpty()) {
+					statements.addChild(new Node("e"));
+				}
+				Analyzer.index = oldIndex;
 				break;
+			}
 			statements.addChild(singleStatement);
+			oldIndex = Analyzer.index;
 		}
 		method.addChild(statements);
-		
-		
+
 		Node returnNode = Analyzer.addTerminalNode("RETURN");
 		if (returnNode == null) {
 			Analyzer.index = oldIndex;
@@ -107,13 +111,12 @@ public class TypeMethod {
 		}
 		method.addChild(returnNode);
 
-		// TODO change to expression
-		idNode = Analyzer.addTerminalNode("ID");
-		if (idNode == null) {
+		Node expression = Expression.valid();
+		if (expression == null) {
 			Analyzer.index = oldIndex;
 			return null;
 		}
-		method.addChild(idNode);
+		method.addChild(expression);
 
 		Node semicolonNode = Analyzer.addTerminalNode("SEMICOLON");
 		if (semicolonNode == null) {

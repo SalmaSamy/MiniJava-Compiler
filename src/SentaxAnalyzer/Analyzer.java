@@ -29,6 +29,7 @@ public class Analyzer {
 		
 		if(cur.children.size() == 0 && !cur.name.equals("e"))
 			System.out.print(cur.name+" ");
+		
 		for(Node node : cur.children){
 			print(node);
 		}

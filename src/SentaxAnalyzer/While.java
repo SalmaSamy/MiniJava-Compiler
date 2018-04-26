@@ -32,7 +32,7 @@ public class While {
 		if(statement == null)
 			return null;
 		whileStatement.addChild(statement);
-		
+				
 		return whileStatement;
 		
 	}
