@@ -1,13 +1,14 @@
 package SentaxAnalyzer;
 
 public class Statement {
+
 	/*
 	 * Statement = "{" Statments "}"
 	 * | IfCondition
 	 * | While
 	 * | SysOut
 	 * | memberAssignment
-	
+
 	 * Statments = Statement Statments | e
 	 */
 
@@ -29,7 +30,7 @@ public class Statement {
 			return statement;
 		}
 		Analyzer.index--;
-		
+
 		//Sysout
 		Node sysout = SysOut.valid();
 		if(sysout != null){
@@ -45,26 +46,26 @@ public class Statement {
 			return statement;
 		}
 		Analyzer.index--;
-		
-		//"{" Statments "}"
+
+		// "{" Statments "}"
 		Node LCurl = Analyzer.addTerminalNode("LEFT_CURL_B");
-		if (LCurl != null){
+		if (LCurl != null) {
 			statement.addChild(LCurl);
-			
-			//Statments = Statement Statments | e
+
+			// Statments = Statement Statments | e
 			Node statements = new Node("Statements");
-			while(true){
+			while (true) {
 				Node singleStatement = Statement.valid();
-				if(singleStatement == null)
+				if (singleStatement == null)
 					break;
 				statements.addChild(singleStatement);
 			}
 			statement.addChild(statements);
-			
+
 			Node RCurl = Analyzer.addTerminalNode("RIGHT_CURL_B");
 			if (RCurl != null)
 				return null;
-			
+
 			statement.addChild(RCurl);
 			return statement;
 		}
