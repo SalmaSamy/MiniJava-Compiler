@@ -3,12 +3,8 @@ package SentaxAnalyzer;
 public class Statement {
 
 	/*
-	 * Statement = "{" Statments "}"
-	 * | IfCondition
-	 * | While
-	 * | SysOut
-	 * | memberAssignment
-	 * Statments = Statement Statments | e
+	 * Statement = "{" Statments "}" | IfCondition | While | SysOut |
+	 * memberAssignment Statments = Statement Statments | e
 	 */
 
 	public static Node valid() {
@@ -30,15 +26,15 @@ public class Statement {
 		}
 		Analyzer.index--;
 
-		//Sysout
+		// Sysout
 		Node sysout = SysOut.valid();
-		if(sysout != null){
-			statement.addChild(sysout);			
+		if (sysout != null) {
+			statement.addChild(sysout);
 			return statement;
 		}
 		Analyzer.index--;
-		
-		//MemberAssignment
+
+		// MemberAssignment
 		Node memberAssignment = MemberAssignment.valid();
 		if (memberAssignment != null) {
 			statement.addChild(memberAssignment);
@@ -47,22 +43,28 @@ public class Statement {
 		Analyzer.index--;
 
 		// "{" Statments "}"
-		Node LCurl = Analyzer.addTerminalNode("LEFT_CURL_B");
+		Node LCurl = Analyzer.addTerminalNode(TokenType.LEFT_CURLY_B);
+
 		if (LCurl != null) {
 			statement.addChild(LCurl);
 
 			// Statments = Statement Statments | e
+			int oldIndex = Analyzer.index;
 			Node statements = new Node("Statements");
 			while (true) {
 				Node singleStatement = Statement.valid();
-				if (singleStatement == null)
+				if (singleStatement == null) {
+					Analyzer.index = oldIndex;
+					Analyzer.test();
 					break;
+				}
 				statements.addChild(singleStatement);
+				oldIndex = Analyzer.index;
 			}
 			statement.addChild(statements);
 
-			Node RCurl = Analyzer.addTerminalNode("RIGHT_CURL_B");
-			if (RCurl != null)
+			Node RCurl = Analyzer.addTerminalNode(TokenType.RIGHT_CURLY_B);
+			if (RCurl == null)
 				return null;
 
 			statement.addChild(RCurl);

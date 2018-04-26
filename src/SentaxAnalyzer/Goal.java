@@ -7,6 +7,7 @@ public class Goal {
 		Node mainClass = MainClass.valid();
 		if (mainClass == null)
 			return null;
+		
 		goal.addChild(mainClass);
 
 		Node classes = new Node("Classes");

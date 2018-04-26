@@ -7,12 +7,12 @@ public class IfCondition {
 	public static Node valid(){
 		Node ifCondition = new Node("IfCondition");
 
-		Node ifNode = Analyzer.addTerminalNode("IF");
+		Node ifNode = Analyzer.addTerminalNode(TokenType.IF);
 		if(ifNode == null)
 			return null;
 		ifCondition.addChild(ifNode);
 		
-		Node LRound = Analyzer.addTerminalNode("LEFT_ROUND_B");
+		Node LRound = Analyzer.addTerminalNode(TokenType.LEFT_ROUND_B);
 		if(LRound == null)
 			return null;
 		ifCondition.addChild(LRound);
@@ -23,7 +23,7 @@ public class IfCondition {
 			return null;
 		ifCondition.addChild(expression);
 		
-		Node RRound = Analyzer.addTerminalNode("RIGHT_ROUND_B");
+		Node RRound = Analyzer.addTerminalNode(TokenType.RIGHT_ROUND_B);
 		if(RRound == null)
 			return null;
 		ifCondition.addChild(RRound);
@@ -37,7 +37,7 @@ public class IfCondition {
 		
 		
 		//ElseOption =  “else” Statement | e
-		Node elseNode = Analyzer.addTerminalNode("ELSE");
+		Node elseNode = Analyzer.addTerminalNode(TokenType.ELSE);
 		if(elseNode != null){
 			ifCondition.addChild(elseNode);
 			

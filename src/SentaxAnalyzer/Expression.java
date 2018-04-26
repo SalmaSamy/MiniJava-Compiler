@@ -10,6 +10,7 @@ public class Expression {
 		Node term = Term.valid();
 		if(term == null)
 			return null;
+
 		expression.addChild(term);
 		
 		Node operatorSide = OperatorSide.valid();

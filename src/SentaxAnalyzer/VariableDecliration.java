@@ -12,7 +12,7 @@ public class VariableDecliration {
 
 		while (true) {
 			if (variableNode.children.size() > 1) {
-				Node commaNode = Analyzer.addTerminalNode("COMMA");
+				Node commaNode = Analyzer.addTerminalNode(TokenType.COMMA);
 				if (commaNode == null) {
 					Analyzer.index--;
 					break;
@@ -20,14 +20,16 @@ public class VariableDecliration {
 				variableNode.addChild(commaNode);
 			}
 
-			Node idNode = Analyzer.addTerminalNode("ID");
-			if (idNode == null)
+			Node idNode = Analyzer.addTerminalNode(TokenType.ID);
+			if (idNode == null) {
 				return null;
+			}
+				
 			variableNode.addChild(idNode);
 
-			// TODO check assignment
-			Node assignment = Analyzer.addTerminalNode("ASSIGNMENT");
+			Node assignment = Analyzer.addTerminalNode(TokenType.ASSIGNMENT);
 			if (assignment == null) {
+				
 				--Analyzer.index;
 				continue;
 			}
@@ -41,7 +43,7 @@ public class VariableDecliration {
 			variableNode.addChild(expression);
 		}
 		
-		Node semicolon = Analyzer.addTerminalNode("SEMICOLON");
+		Node semicolon = Analyzer.addTerminalNode(TokenType.SEMICOLON);
 		if (semicolon == null)
 			return null;
 		variableNode.addChild(semicolon);

@@ -26,12 +26,12 @@ public class OperatorSide {
 		}
 		
 		--Analyzer.index;
-		Node dot = Analyzer.addTerminalNode("DOT");
+		Node dot = Analyzer.addTerminalNode(TokenType.DOT);
 		if (dot != null) {
 			// .length
 			operatorSide.addChild(dot);
 			
-			Node len = Analyzer.addTerminalNode("LENGTH");
+			Node len = Analyzer.addTerminalNode(TokenType.LENGTH);
 			if (len != null) {
 				operatorSide.addChild(len);
 				return operatorSide;
@@ -48,7 +48,7 @@ public class OperatorSide {
 		--Analyzer.index;
 
 		// [ expression]
-		Node LSquare = Analyzer.addTerminalNode("LEFT_SQUARE_B");
+		Node LSquare = Analyzer.addTerminalNode(TokenType.LEFT_SQUARE_B);
 		if (LSquare != null) {
 			operatorSide.addChild(LSquare);
 
@@ -58,7 +58,7 @@ public class OperatorSide {
 
 			operatorSide.addChild(expression);
 
-			Node RSquare = Analyzer.addTerminalNode("RIGHT_SQUARE_B");
+			Node RSquare = Analyzer.addTerminalNode(TokenType.RIGHT_SQUARE_B);
 			if (RSquare == null)
 				return null;
 
@@ -67,7 +67,7 @@ public class OperatorSide {
 		}
 		
 		--Analyzer.index;
-		return operatorSide;
+		return new Node("e");
 	}
 
 }

@@ -6,12 +6,12 @@ public class While {
 	public static Node valid(){
 		Node whileStatement = new Node("WhileStatment");
 		
-		Node whileNode = Analyzer.addTerminalNode("WHILE");
+		Node whileNode = Analyzer.addTerminalNode(TokenType.WHILE);
 		if(whileNode == null)
 			return null;
 		whileStatement.addChild(whileNode);
 		
-		Node LRound = Analyzer.addTerminalNode("LEFT_ROUND_B");
+		Node LRound = Analyzer.addTerminalNode(TokenType.LEFT_ROUND_B);
 		if(LRound == null)
 			return null;
 		whileStatement.addChild(LRound);
@@ -22,7 +22,7 @@ public class While {
 			return null;
 		whileStatement.addChild(expression);
 		
-		Node RRound = Analyzer.addTerminalNode("RIGHT_ROUND_B");
+		Node RRound = Analyzer.addTerminalNode(TokenType.RIGHT_ROUND_B);
 		if(RRound == null)
 			return null;
 		whileStatement.addChild(RRound);

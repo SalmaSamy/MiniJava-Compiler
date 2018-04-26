@@ -7,11 +7,11 @@ public class FunctionCall {
 	public static Node valid() {
 		Node functionCall = new Node("Function Call");
 
-		Node idNode = Analyzer.addTerminalNode("ID");
+		Node idNode = Analyzer.addTerminalNode(TokenType.ID);
 		if (idNode != null) {
 			functionCall.addChild(idNode);
 			
-			Node LROUND = Analyzer.addTerminalNode("LEFT_ROUND_B");
+			Node LROUND = Analyzer.addTerminalNode(TokenType.LEFT_ROUND_B);
 			if (LROUND != null) {
 				functionCall.addChild(LROUND);
 
@@ -20,7 +20,7 @@ public class FunctionCall {
 					return null;
 				functionCall.addChild(arguments);
 
-				Node RROUND = Analyzer.addTerminalNode("RIGHT_ROUND_B");
+				Node RROUND = Analyzer.addTerminalNode(TokenType.RIGHT_ROUND_B);
 				if (RROUND == null)
 					return null;
 				functionCall.addChild(RROUND);

@@ -7,7 +7,7 @@ public class Parameters {
 		
 		while(true){
 			if (!parameters.children.isEmpty()) {
-				Node commaNode = Analyzer.addTerminalNode("COMMA");
+				Node commaNode = Analyzer.addTerminalNode(TokenType.COMMA);
 				if (commaNode == null)
 				{
 					Analyzer.index--;
@@ -21,7 +21,7 @@ public class Parameters {
 				return null;
 			parameters.addChild(typeParameter);
 			
-			Node idNode = Analyzer.addTerminalNode("ID");
+			Node idNode = Analyzer.addTerminalNode(TokenType.ID);
 			if (idNode == null)
 				return null;
 			parameters.addChild(idNode);

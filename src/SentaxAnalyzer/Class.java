@@ -18,29 +18,29 @@ public class Class {
 		int oldIndex = Analyzer.index;
 		Node classDecliration = new Node("ClassDecliration");
 		
-		Node classNode = Analyzer.addTerminalNode("CLASS");
+		Node classNode = Analyzer.addTerminalNode(TokenType.CLASS);
 		if(classNode == null)
 			return null;
 		classDecliration.addChild(classNode);
 		
-		Node idNode = Analyzer.addTerminalNode("ID");
+		Node idNode = Analyzer.addTerminalNode(TokenType.ID);
 		if(idNode == null)
 			return null;
 		classDecliration.addChild(idNode);
 		
-		Node inheritanceNode = Analyzer.addTerminalNode("EXTENDS");
+		Node inheritanceNode = Analyzer.addTerminalNode(TokenType.EXTENDS);
 		if(inheritanceNode == null)
 			Analyzer.index--;
 		else{
 			classDecliration.addChild(inheritanceNode);
 			
-			Node inheritedClassNode = Analyzer.addTerminalNode("ID");
+			Node inheritedClassNode = Analyzer.addTerminalNode(TokenType.ID);
 			if(inheritedClassNode == null)
 				return null;
 			classDecliration.addChild(inheritedClassNode);
 		}
 		
-		Node LCurlyNode = Analyzer.addTerminalNode("LEFT_CURLY_B");
+		Node LCurlyNode = Analyzer.addTerminalNode(TokenType.LEFT_CURLY_B);
 		if(LCurlyNode == null)
 			return null;
 		classDecliration.addChild(LCurlyNode);
@@ -50,6 +50,7 @@ public class Class {
 		Node classVars = new Node("Variables");
 		while(true){
 			Node varDecliration = VariableDecliration.valid();
+			
 			if(varDecliration == null){
 				if(classVars.children.isEmpty()){
 					classVars.addChild(new Node("e"));
@@ -57,6 +58,7 @@ public class Class {
 				Analyzer.index = oldIndex;
 				break;
 			}
+
 			classVars.addChild(varDecliration);
 			oldIndex = Analyzer.index;
 		}
@@ -96,7 +98,7 @@ public class Class {
 		}
 		classDecliration.addChild(methods);
 						
-		Node RCurlyNode = Analyzer.addTerminalNode("RIGHT_CURLY_B");
+		Node RCurlyNode = Analyzer.addTerminalNode(TokenType.RIGHT_CURLY_B);
 		if(RCurlyNode == null)
 			return null;
 		classDecliration.addChild(RCurlyNode);

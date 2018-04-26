@@ -5,12 +5,13 @@ public class ArgumentParameters {
 	 * ArgumentParameters = Expression More | e
 	 * More = "," Expression More | e
 	 */
+	
 	public static Node valid () {
 		Node arguments = new Node("ArgumentParameters");
 
 		while(true){
 			if (arguments.children.size() > 0) {
-				Node commaNode = Analyzer.addTerminalNode("COMMA");
+				Node commaNode = Analyzer.addTerminalNode(TokenType.COMMA);
 				if (commaNode == null){
 					Analyzer.index--;
 					break;
@@ -23,7 +24,8 @@ public class ArgumentParameters {
 			{
 				if(arguments.children.size() > 0)
 					return null;
-				expression = new Node("EXPRESSION");
+				
+				expression = new Node("Expression");
 				expression.addChild(new Node("e"));
 			}
 			arguments.addChild(expression);

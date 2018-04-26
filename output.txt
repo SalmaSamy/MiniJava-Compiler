@@ -1,5 +1,6 @@
 Tokens:
 
 Tree in BFS:
+RIGHT_CURLY_B
 No more tokens
-class Main { public static void main ( String [ ] Identifier ) { Statements } } class IHateYou { int salma = 1 OperatorSide ; int salma = 2 OperatorSide ; IHateYou ( ) { int lala ; int lala2 = 3 OperatorSide , blabla , QQ = 6 OperatorSide ; while ( true OperatorSide ) System.out.println ( 4 OperatorSide ) ; } public int method ( int x , int y ) { int a , b = 5 OperatorSide ; int s = a + 5 - ( 4 * 4 OperatorSide ) && x OperatorSide ; a = this . length ; if ( x > 5 OperatorSide ) a [ i OperatorSide ] = 5 OperatorSide ; return a OperatorSide ; } } 
+class Main { public static void main ( String [ ] Identifier ) { Statements } } class IHateYou { int salma = 1 ; int salma = 2 ; IHateYou ( ) { int lala ; int lala2 = 3 , blabla , QQ = 6 ; while ( true ) System.out.println ( 4 ) ; } PUBLIC int method ( int x , int y ) { int a , b = 5 ; int s = a + 5 - ( 4 * 4 ) && x ; a = this . length ; if ( x > 5 ) a [ i ] = 5 ; if ( a + 5 == 5 ) { a = 4 ; } return a ; } } 
