@@ -56,7 +56,7 @@ public class Statement {
 			return statement;
 		}
 		Analyzer.index--;
-
+		
 		// Identifier SquareEx "=" Expression ";"
 		Node idNode = Analyzer.addTerminalNode("ID");
 		if (idNode != null) {
