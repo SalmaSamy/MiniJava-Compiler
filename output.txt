@@ -1,0 +1,5 @@
+Tokens:
+
+Tree in BFS:
+No more tokens
+class Main { public static void main ( String [ ] Identifier ) { } } class IHateYou { int x = x . length ; int y = 4 + 5 OperatorSide ; int x = t . get ( 3 OperatorSide , x + 5 OperatorSide , this OperatorSide , true OperatorSide ) ; int x = ( 4 * t OperatorSide ) + 4 OperatorSide ; int lala = new blabla ( 3 OperatorSide , x >= 4 OperatorSide ) OperatorSide ; int lala = new int [ 3 + 8 && 4 * 3 || 2 OperatorSide ] OperatorSide ; float f = this . get ( ) ; } 
