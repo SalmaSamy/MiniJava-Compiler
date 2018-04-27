@@ -1,1 +1,21 @@
-class Main { public static void main ( String [ ] Identifier ) { x = true ; a [ i ] = this . length ; a [ i ] = this . len ( 3 , true ) ; x = x . get ( ) ; } } class Something { PUBLIC STATIC int Main ( ) { return x ; } STATIC boolean OK ( int x , int y , boolean is ) { if ( this . length ) 
+No more tokens
+class Main { 
+public static void main ( String [ ] Identifier ) { 
+x = true ; 
+a [ i ] = this . length ; 
+a [ i ] = this . len ( 3 , true ) ; 
+x = x . get ( ) ; 
+} 
+} 
+class Something { 
+public static int Main ( ) { 
+return x ; 
+} 
+static boolean OK ( int x , int y , boolean is ) { 
+if ( this . length ) x = x + 1 ; 
+if ( x == 5 ) { 
+x = Parser . parse ( ) ; 
+} 
+return true ; 
+} 
+} 

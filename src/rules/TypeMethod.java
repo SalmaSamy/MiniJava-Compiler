@@ -15,37 +15,34 @@ public class TypeMethod {
 	// "{" Variables Statements "return" Expression ";" "}"
 
 	public static Node valid() {
-		
+
 		ArrayList<TokenType> accessType = new ArrayList<>(
 				Arrays.asList(TokenType.PUBLIC, TokenType.PRIVATE, TokenType.PROTECTED));
 
 		Node method = new Node("TypeMethodDeclaration");
 		Token token = Parser.getCurToken();
-		
+
 		boolean check = false;
 		for (TokenType tt : accessType) {
 			if (token.type == tt) {
 				check = true;
-				method.addChild(new Node(tt.name()));
+				method.addChild(new Node(tt.name().toLowerCase()));
 			}
 		}
 
 		// if it doesn't exist consider it public
 		if (!check)
 			Parser.index--;
-		
-		
 
 		token = Parser.getCurToken();
 		if (token.type == TokenType.STATIC) {
-			method.addChild(new Node(TokenType.STATIC.name()));
+			method.addChild(new Node(TokenType.STATIC.name().toLowerCase()));
 		} else
 			Parser.index--;
-		
+
 		Node typeNode = Type.valid();
 		if (typeNode == null)
 			return null;
-		
 
 		method.addChild(typeNode);
 
@@ -67,10 +64,10 @@ public class TypeMethod {
 		if (parameters.isException()) {
 			System.out.println("Y");
 
-				return method;
+			return method;
 
 		}
-		
+
 		Node RPran = Parser.addTerminalNode(TokenType.RIGHT_ROUND_B, false);
 		method.addChild(RPran);
 
@@ -87,7 +84,7 @@ public class TypeMethod {
 		int oldIndex = Parser.index;
 		Node variables = new Node("Variables");
 		variables.setEpsilon(true);
-		
+
 		while (true) {
 			Node varDecliration = VariableDecliration.valid();
 			if (varDecliration == null) {
@@ -95,12 +92,12 @@ public class TypeMethod {
 				break;
 			}
 			variables.addChild(varDecliration);
-			
+
 			if (varDecliration.isException()) {
 				method.addChild(variables);
 				return method;
 			}
-			
+
 			oldIndex = Parser.index;
 		}
 		method.addChild(variables);
@@ -109,28 +106,28 @@ public class TypeMethod {
 		oldIndex = Parser.index;
 		Node statements = new Node("Statements");
 		statements.setEpsilon(true);
-		
+
 		while (true) {
 			Node singleStatement = Statement.valid();
 			if (singleStatement == null) {
 				Parser.index = oldIndex;
 				break;
 			}
-			
+
 			statements.addChild(singleStatement);
-			
+
 			if (singleStatement.isException()) {
 				method.addChild(statements);
 				return method;
 			}
-			
+
 			oldIndex = Parser.index;
 		}
 		method.addChild(statements);
 
 		Node returnNode = Parser.addTerminalNode(TokenType.RETURN, false);
 		method.addChild(returnNode);
-		
+
 		if (returnNode.isException()) {
 			Parser.index = oldIndex;
 			return method;
@@ -138,7 +135,7 @@ public class TypeMethod {
 
 		Node expression = Expression.valid();
 		method.addChild(expression);
-		
+
 		if (expression.isException()) {
 			Parser.index = oldIndex;
 			return method;
@@ -146,7 +143,7 @@ public class TypeMethod {
 
 		Node semicolonNode = Parser.addTerminalNode(TokenType.SEMICOLON, false);
 		method.addChild(semicolonNode);
-		
+
 		if (semicolonNode.isException()) {
 			Parser.index = oldIndex;
 			return method;
@@ -154,10 +151,10 @@ public class TypeMethod {
 
 		Node RCurly = Parser.addTerminalNode(TokenType.RIGHT_CURLY_B, false);
 		method.addChild(RCurly);
-		
+
 		if (RCurly.isException())
 			Parser.index = oldIndex;
-		
+
 		return method;
 
 	}

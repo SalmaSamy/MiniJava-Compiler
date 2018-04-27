@@ -17,7 +17,7 @@ public class Parser {
 		for (Token token : t) {
 			if (token.type == TokenType.EOL || token.type == TokenType.S_COMMENTS || token.type == TokenType.M_COMMENTS)
 				continue;
-			
+
 			tokens.add(token);
 		}
 	}
@@ -46,8 +46,11 @@ public class Parser {
 				System.out.println("\nException: " + cur.getName());
 			else
 				System.out.print(cur.getName() + " ");
+			if (cur.getName().equals(";") || cur.getName().equals("}") || cur.getName().equals("{"))
+				System.out.println();
 		}
-
+		
+		
 		for (Node node : cur.getChildren()) {
 			print(node);
 		}
@@ -60,7 +63,6 @@ public class Parser {
 
 	public static Node addTerminalNode(TokenType expected, boolean optional) {
 		Token token = Parser.getCurToken();
-		// TODO Analyzer.intdex--
 
 		if (token == null || token.type != expected) {
 			if (optional)

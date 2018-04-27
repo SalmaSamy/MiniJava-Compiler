@@ -1,4 +1,5 @@
 package sentax_Analyzer;
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
@@ -13,7 +14,6 @@ public class Main {
 	static private final String INPUT = "input.txt";
 	static private final String OUTPUT = "output.txt";
 
-	
 	public static void main(String args[]) {
 		FileInputStream instream = null;
 		PrintStream outstream = null;
@@ -37,10 +37,10 @@ public class Main {
 			String s = in.nextLine();
 			code += s;
 		}
-		
+
 		Tokenizer tokenizer = new Tokenizer();
 		ArrayList<Token> tokens = tokenizer.execute(code);
-		
+
 		Parser parser = new Parser(tokens);
 		parser.parse();
 		in.close();

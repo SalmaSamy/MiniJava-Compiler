@@ -12,12 +12,16 @@ class Main {
 class Something {
 	public static int Main() {
 		return x;
+		// this should be ignored
 	}
 	
 	static boolean OK(int x, int y, boolean is) {
 		if (this.length)
-			return true;
-			
+			x = x + 1;
+		/*
+		This should also be ignored
+		*/
+		
 		if (x == 5) {
 			x = Parser.parse();
 		}
