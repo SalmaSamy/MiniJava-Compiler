@@ -23,38 +23,46 @@ public class MainClass {
 
 		for (TokenType tt : mainTerminals) {
 			// System.out.println(tt.name());
-			Node current = Parser.addTerminalNode(tt);
-			if (current == null)
-				return null;
-
+			Node current = Parser.addTerminalNode(tt, false);
 			mainClass.addChild(current);
+			
+			if (current.isException())
+				return mainClass;
+			
 			oldIndex = Parser.index;
 		}
 		
 		Node statements = new Node("Statements");
 		statements.setEpsilon(true);
+		oldIndex = Parser.index;
+		
 		while (true) {
 			Node singleStatement = Statement.valid();
+			
 			if (singleStatement == null) {
 				Parser.index = oldIndex;
 				break;
 			}
-			statements.setEpsilon(false);
+			
 			statements.addChild(singleStatement);
+			
+			if (singleStatement.isException()) {
+				mainClass.addChild(statements);
+				return mainClass;
+			}
+			oldIndex = Parser.index;
 		}
 		mainClass.addChild(statements);
 
 		TokenType[] mainTerminals2 = { TokenType.RIGHT_CURLY_B, TokenType.RIGHT_CURLY_B };
 		for (TokenType tt : mainTerminals2) {
-			Node current = Parser.addTerminalNode(tt);
-			if (current == null)
-				return null;
-
+			Node current = Parser.addTerminalNode(tt, false);
 			mainClass.addChild(current);
-			oldIndex = Parser.index;
+			
+			if (current.isException())
+				return mainClass;
 		}
 		return mainClass;
 
 	}
-
 }

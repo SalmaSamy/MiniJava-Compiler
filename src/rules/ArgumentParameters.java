@@ -11,10 +11,11 @@ public class ArgumentParameters {
 
 	public static Node valid() {
 		Node arguments = new Node("ArgumentParameters");
-
+		arguments.setEpsilon(true);
+		
 		while (true) {
 			if (!arguments.isLeaf()) {
-				Node commaNode = Parser.addTerminalNode(TokenType.COMMA);
+				Node commaNode = Parser.addTerminalNode(TokenType.COMMA, true);
 				if (commaNode == null) {
 					Parser.index--;
 					break;
@@ -23,15 +24,11 @@ public class ArgumentParameters {
 			}
 
 			Node expression = Expression.valid();
-			if (expression == null) {
-				if (!arguments.isLeaf())
-					return null;
-
-				expression = new Node("Expression");
-				expression.setEpsilon(true);
-			}
+			
+			if (expression.isException())
+				break;
+			
 			arguments.addChild(expression);
-
 		}
 
 		return arguments;

@@ -10,15 +10,16 @@ public class Expression {
 		Node expression = new Node ("Expression");
 		
 		Node term = Term.valid();
-		if(term == null)
-			return null;
-
 		expression.addChild(term);
 		
+		if(term.isException()) {
+			return expression;
+		}		
+
 		Node operatorSide = OperatorSide.valid();
-		if(operatorSide == null)
-			return null;
-		expression.addChild(operatorSide);
+		
+		if (operatorSide != null)
+			expression.addChild(operatorSide);
 		
 		return expression;
 	}

@@ -20,97 +20,117 @@ public class Class {
 	public static Node valid() {
 
 		int oldIndex = Parser.index;
-		Node classDecliration = new Node("ClassDecliration");
+		Node classDecliration = new Node("ClassDeclaration");
 
-		Node classNode = Parser.addTerminalNode(TokenType.CLASS);
-		if (classNode == null)
+		Node classNode = Parser.addTerminalNode(TokenType.CLASS, true);
+		if (classNode == null) {
 			return null;
+		}
+
 		classDecliration.addChild(classNode);
 
-		Node idNode = Parser.addTerminalNode(TokenType.ID);
-		if (idNode == null)
-			return null;
+		Node idNode = Parser.addTerminalNode(TokenType.ID, false);
+
 		classDecliration.addChild(idNode);
 
-		Node inheritanceNode = Parser.addTerminalNode(TokenType.EXTENDS);
+		if (idNode.isException())
+			return classDecliration;
+
+		Node inheritanceNode = Parser.addTerminalNode(TokenType.EXTENDS, true);
 		if (inheritanceNode == null)
 			Parser.index--;
 		else {
 			classDecliration.addChild(inheritanceNode);
 
-			Node inheritedClassNode = Parser.addTerminalNode(TokenType.ID);
-			if (inheritedClassNode == null)
-				return null;
+			Node inheritedClassNode = Parser.addTerminalNode(TokenType.ID, false);
+
 			classDecliration.addChild(inheritedClassNode);
+			if (inheritedClassNode.isException())
+				return classDecliration;
 		}
 
-		Node LCurlyNode = Parser.addTerminalNode(TokenType.LEFT_CURLY_B);
-		if (LCurlyNode == null)
-			return null;
+		Node LCurlyNode = Parser.addTerminalNode(TokenType.LEFT_CURLY_B, false);
 		classDecliration.addChild(LCurlyNode);
 
+		if (LCurlyNode.isException())
+			return classDecliration;
+
 		// Variables
-		oldIndex = Parser.index;
 		Node classVars = new Node("Variables");
+		classVars.setEpsilon(true);
+
+		oldIndex = Parser.index;
 		while (true) {
 			Node varDecliration = VariableDecliration.valid();
 
 			if (varDecliration == null) {
-
-				if (classVars.isLeaf())
-					classVars.setEpsilon(true);
 
 				Parser.index = oldIndex;
 				break;
 			}
 
 			classVars.addChild(varDecliration);
+
+			if (varDecliration.isException()) {
+				classDecliration.addChild(classVars);
+				return classDecliration;
+			}
+
+			classVars.setEpsilon(false);
 			oldIndex = Parser.index;
 		}
+
 		classDecliration.addChild(classVars);
 
 		// Constructors
 		oldIndex = Parser.index;
 		Node constructors = new Node("Constructors");
+		constructors.setEpsilon(true);
+
 		while (true) {
 			Node constructorDecliration = Constructor.valid();
 			if (constructorDecliration == null) {
-
-				if (constructors.isLeaf())
-					constructors.setEpsilon(true);
-
 				Parser.index = oldIndex;
 				break;
 			}
 			constructors.addChild(constructorDecliration);
+
+			if (constructorDecliration.isEpsilon()) {
+				classDecliration.addChild(constructorDecliration);
+				return classDecliration;
+			}
 			oldIndex = Parser.index;
 		}
 		classDecliration.addChild(constructors);
 
 		// Methods
-		oldIndex = Parser.index;
+
 		Node methods = new Node("Methods");
+		methods.setEpsilon(true);
+
+		oldIndex = Parser.index;
 		while (true) {
 			Node methodDecliration = TypeMethod.valid();
 			if (methodDecliration == null) {
-
-				if (methods.isLeaf())
-					methods.setEpsilon(true);
-
 				Parser.index = oldIndex;
 				break;
 			}
+
 			methods.addChild(methodDecliration);
+
+			if (methodDecliration.isException()) {
+				classDecliration.addChild(methods);
+				return classDecliration;
+			}
+
 			oldIndex = Parser.index;
 		}
+
 		classDecliration.addChild(methods);
 
-		Node RCurlyNode = Parser.addTerminalNode(TokenType.RIGHT_CURLY_B);
-		if (RCurlyNode == null)
-			return null;
+		Node RCurlyNode = Parser.addTerminalNode(TokenType.RIGHT_CURLY_B, false);
 		classDecliration.addChild(RCurlyNode);
 
 		return classDecliration;
-
 	}
 }

@@ -1,29 +1,30 @@
 package rules;
 
 import sentax_Analyzer.Node;
-import sentax_Analyzer.Parser;
 
 public class Goal {
 	public static Node valid() {
 		Node goal = new Node("Goal");
 
 		Node mainClass = MainClass.valid();
-		if (mainClass == null)
-			return null;
-		
 		goal.addChild(mainClass);
-
+		
+		if (mainClass.isException())
+			return goal;
+			
 		Node classes = new Node("Classes");
-		int oldIndex = Parser.index;
+		classes.setEpsilon(true);
+				
 		while (true) {
 			Node classNode = Class.valid();
-			if (classNode == null) {
-				Parser.index = oldIndex;
+			
+			if (classNode == null)
 				break;
-			}
 			
 			classes.addChild(classNode);
-			oldIndex = Parser.index;
+			
+			if (classNode.isException()) 
+				break;
 		}
 		
 		goal.addChild(classes);

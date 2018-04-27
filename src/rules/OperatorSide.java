@@ -7,7 +7,8 @@ import sentax_Analyzer.Parser;
 public class OperatorSide {
 
 	/*
-	 * OperatorSide = Operators Expression | "." AfterDot | "[" Expression "]" | e
+	 * OperatorSide = Operators Expression | "." AfterDot | "[" Expression "]" |
+	 * e
 	 * 
 	 * AfterDot = "length” | Identifier "(" ArgumentParameter ")"
 	 * 
@@ -18,62 +19,60 @@ public class OperatorSide {
 
 		// operator expression
 		Node operator = Operators.valid();
+				
 		if (operator != null) {
 			operatorSide.addChild(operator);
-			
+
 			Node expression = Expression.valid();
-			if (expression == null)
-				return null;
 			operatorSide.addChild(expression);
 
 			return operatorSide;
 		}
-		
+
 		--Parser.index;
-		Node dot = Parser.addTerminalNode(TokenType.DOT);
+		Node dot = Parser.addTerminalNode(TokenType.DOT, true);
 		if (dot != null) {
-			// .length
-			operatorSide.addChild(dot);
 			
-			Node len = Parser.addTerminalNode(TokenType.LENGTH);
-			if (len != null) {
-				operatorSide.addChild(len);
-				return operatorSide;
-			}
-			--Parser.index;
+			operatorSide.addChild(dot);
+
 			// function call
 			Node functionCall = FunctionCall.valid();
 			if (functionCall != null) {
 				operatorSide.addChild(functionCall);
 				return operatorSide;
 			}
-			return null;
+			--Parser.index;
+			
+			// .length
+			Node len = Parser.addTerminalNode(TokenType.LENGTH, false);
+			operatorSide.addChild(len);
+		
+			return operatorSide;
 		}
 		--Parser.index;
 
 		// [ expression]
-		Node LSquare = Parser.addTerminalNode(TokenType.LEFT_SQUARE_B);
+		Node LSquare = Parser.addTerminalNode(TokenType.LEFT_SQUARE_B, true);
 		if (LSquare != null) {
 			operatorSide.addChild(LSquare);
 
 			Node expression = Expression.valid();
-			if (expression == null)
-				return null;
-
 			operatorSide.addChild(expression);
+			
+			if (expression.isException())
+				return operatorSide;
 
-			Node RSquare = Parser.addTerminalNode(TokenType.RIGHT_SQUARE_B);
-			if (RSquare == null)
-				return null;
+			
 
+			Node RSquare = Parser.addTerminalNode(TokenType.RIGHT_SQUARE_B, false);
 			operatorSide.addChild(RSquare);
+			
 			return operatorSide;
 		}
-		
+
 		--Parser.index;
-		
+
 		operatorSide.setEpsilon(true);
 		return operatorSide;
 	}
-
 }

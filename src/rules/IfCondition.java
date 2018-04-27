@@ -11,43 +11,54 @@ public class IfCondition {
 	public static Node valid(){
 		Node ifCondition = new Node("IfCondition");
 
-		Node ifNode = Parser.addTerminalNode(TokenType.IF);
+		Node ifNode = Parser.addTerminalNode(TokenType.IF, true);
 		if(ifNode == null)
 			return null;
 		ifCondition.addChild(ifNode);
 		
-		Node LRound = Parser.addTerminalNode(TokenType.LEFT_ROUND_B);
-		if(LRound == null)
-			return null;
+		Node LRound = Parser.addTerminalNode(TokenType.LEFT_ROUND_B, false);
 		ifCondition.addChild(LRound);
+		
+		if(LRound.isException())
+			return ifCondition;
 		
 		//expression
 		Node expression = Expression.valid();
-		if(expression == null)
-			return null;
 		ifCondition.addChild(expression);
 		
-		Node RRound = Parser.addTerminalNode(TokenType.RIGHT_ROUND_B);
-		if(RRound == null)
-			return null;
+		if(expression.isException())
+			return ifCondition;
+		
+		Node RRound = Parser.addTerminalNode(TokenType.RIGHT_ROUND_B, false);
 		ifCondition.addChild(RRound);
 		
+		if(RRound.isException())
+			return ifCondition;
 		
 		//Statement
 		Node statement = Statement.valid();
-		if(statement == null)
-			return null;
+		if(statement == null) {
+			ifCondition.setException(true);
+			ifCondition.setName("Syntax Error: No statement for if");
+			return ifCondition;
+		}		
+		
 		ifCondition.addChild(statement);
 		
-		
 		//ElseOption =  “else” Statement | e
-		Node elseNode = Parser.addTerminalNode(TokenType.ELSE);
+		Node elseNode = Parser.addTerminalNode(TokenType.ELSE, true);
 		if(elseNode != null){
 			ifCondition.addChild(elseNode);
 			
 			Node elseStatement = Statement.valid();
-			if(elseStatement == null)
-				return null;
+			if(elseStatement == null) {
+				Node Exception = new Node("Syntax Error: No statement for else");
+				Exception.setException(true);
+				ifCondition.addChild(Exception);
+				
+				return ifCondition;
+			}
+				
 			ifCondition.addChild(elseStatement);
 		}
 		else
@@ -55,5 +66,4 @@ public class IfCondition {
 		
 		return ifCondition;
 	}
-
 }

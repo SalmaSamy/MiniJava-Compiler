@@ -15,13 +15,13 @@ public class TypeMethod {
 	// "{" Variables Statements "return" Expression ";" "}"
 
 	public static Node valid() {
-
-		int oldIndex = Parser.index;
+		
 		ArrayList<TokenType> accessType = new ArrayList<>(
 				Arrays.asList(TokenType.PUBLIC, TokenType.PRIVATE, TokenType.PROTECTED));
 
 		Node method = new Node("TypeMethodDeclaration");
 		Token token = Parser.getCurToken();
+		
 		boolean check = false;
 		for (TokenType tt : accessType) {
 			if (token.type == tt) {
@@ -33,62 +33,74 @@ public class TypeMethod {
 		// if it doesn't exist consider it public
 		if (!check)
 			Parser.index--;
+		
+		
 
 		token = Parser.getCurToken();
 		if (token.type == TokenType.STATIC) {
 			method.addChild(new Node(TokenType.STATIC.name()));
 		} else
 			Parser.index--;
-
+		
 		Node typeNode = Type.valid();
 		if (typeNode == null)
 			return null;
+		
+
 		method.addChild(typeNode);
 
-		Node idNode = Parser.addTerminalNode(TokenType.ID);
-		if (idNode == null)
-			return null;
-
+		Node idNode = Parser.addTerminalNode(TokenType.ID, false);
 		method.addChild(idNode);
 
-		Node Lpran = Parser.addTerminalNode(TokenType.LEFT_ROUND_B);
-		if (Lpran == null)
-			return null;
+		if (idNode.isException())
+			return method;
+
+		Node Lpran = Parser.addTerminalNode(TokenType.LEFT_ROUND_B, false);
 		method.addChild(Lpran);
 
-		oldIndex = Parser.index;
+		if (Lpran.isException())
+			return method;
+
 		Node parameters = Parameters.valid();
-		if (parameters == null) {
-			parameters = new Node("Paramters");
-			
-			parameters.setEpsilon(true);
-			Parser.index = oldIndex;
-		}
 		method.addChild(parameters);
 
-		Node RPran = Parser.addTerminalNode(TokenType.RIGHT_ROUND_B);
-		if (RPran == null)
-			return null;
+		if (parameters.isException()) {
+			System.out.println("Y");
+
+				return method;
+
+		}
+		
+		Node RPran = Parser.addTerminalNode(TokenType.RIGHT_ROUND_B, false);
 		method.addChild(RPran);
 
-		Node LCurly = Parser.addTerminalNode(TokenType.LEFT_CURLY_B);
-		if (LCurly == null)
-			return null;
+		if (RPran.isException())
+			return method;
+
+		Node LCurly = Parser.addTerminalNode(TokenType.LEFT_CURLY_B, false);
 		method.addChild(LCurly);
 
+		if (LCurly.isException())
+			return method;
+
 		// Variables
-		oldIndex = Parser.index;
+		int oldIndex = Parser.index;
 		Node variables = new Node("Variables");
+		variables.setEpsilon(true);
+		
 		while (true) {
 			Node varDecliration = VariableDecliration.valid();
 			if (varDecliration == null) {
-				if (variables.isLeaf()) {
-					variables.addChild(new Node("e"));
-				}
 				Parser.index = oldIndex;
 				break;
 			}
 			variables.addChild(varDecliration);
+			
+			if (varDecliration.isException()) {
+				method.addChild(variables);
+				return method;
+			}
+			
 			oldIndex = Parser.index;
 		}
 		method.addChild(variables);
@@ -96,48 +108,56 @@ public class TypeMethod {
 		// Statements
 		oldIndex = Parser.index;
 		Node statements = new Node("Statements");
+		statements.setEpsilon(true);
+		
 		while (true) {
 			Node singleStatement = Statement.valid();
 			if (singleStatement == null) {
-				if (statements.isLeaf())
-					statements.setEpsilon(true);
-				
 				Parser.index = oldIndex;
 				break;
 			}
+			
 			statements.addChild(singleStatement);
+			
+			if (singleStatement.isException()) {
+				method.addChild(statements);
+				return method;
+			}
+			
 			oldIndex = Parser.index;
 		}
 		method.addChild(statements);
 
-		Node returnNode = Parser.addTerminalNode(TokenType.RETURN);
-		if (returnNode == null) {
-			Parser.index = oldIndex;
-			return null;
-		}
+		Node returnNode = Parser.addTerminalNode(TokenType.RETURN, false);
 		method.addChild(returnNode);
+		
+		if (returnNode.isException()) {
+			Parser.index = oldIndex;
+			return method;
+		}
 
 		Node expression = Expression.valid();
-		if (expression == null) {
-			Parser.index = oldIndex;
-			return null;
-		}
 		method.addChild(expression);
-
-		Node semicolonNode = Parser.addTerminalNode(TokenType.SEMICOLON);
-		if (semicolonNode == null) {
+		
+		if (expression.isException()) {
 			Parser.index = oldIndex;
-			return null;
+			return method;
 		}
+
+		Node semicolonNode = Parser.addTerminalNode(TokenType.SEMICOLON, false);
 		method.addChild(semicolonNode);
-
-		Node RCurly = Parser.addTerminalNode(TokenType.RIGHT_CURLY_B);
-		if (RCurly == null) {
+		
+		if (semicolonNode.isException()) {
 			Parser.index = oldIndex;
-			return null;
+			return method;
 		}
-		method.addChild(RCurly);
 
+		Node RCurly = Parser.addTerminalNode(TokenType.RIGHT_CURLY_B, false);
+		method.addChild(RCurly);
+		
+		if (RCurly.isException())
+			Parser.index = oldIndex;
+		
 		return method;
 
 	}

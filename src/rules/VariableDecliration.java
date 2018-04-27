@@ -10,13 +10,15 @@ public class VariableDecliration {
 		Node variableNode = new Node("Variable Declaration");
 
 		Node typeVariable = Type.valid();
+		
 		if (typeVariable == null)
 			return null;
+			
 		variableNode.addChild(typeVariable);
 
 		while (true) {
 			if (variableNode.getChildren().size() > 1) {
-				Node commaNode = Parser.addTerminalNode(TokenType.COMMA);
+				Node commaNode = Parser.addTerminalNode(TokenType.COMMA, true);
 				if (commaNode == null) {
 					Parser.index--;
 					break;
@@ -24,16 +26,15 @@ public class VariableDecliration {
 				variableNode.addChild(commaNode);
 			}
 
-			Node idNode = Parser.addTerminalNode(TokenType.ID);
-			if (idNode == null) {
-				return null;
-			}
-
+			Node idNode = Parser.addTerminalNode(TokenType.ID, false);
 			variableNode.addChild(idNode);
 
-			Node assignment = Parser.addTerminalNode(TokenType.ASSIGNMENT);
-			if (assignment == null) {
+			if (idNode.isException()) {
+				return variableNode;
+			}
 
+			Node assignment = Parser.addTerminalNode(TokenType.ASSIGNMENT, true);
+			if (assignment == null) {
 				--Parser.index;
 				continue;
 			}
@@ -41,15 +42,13 @@ public class VariableDecliration {
 			variableNode.addChild(assignment);
 
 			Node expression = Expression.valid();
-			if (expression == null)
-				return null;
-
 			variableNode.addChild(expression);
+
+			if (expression.isException())
+				return variableNode;
 		}
 
-		Node semicolon = Parser.addTerminalNode(TokenType.SEMICOLON);
-		if (semicolon == null)
-			return null;
+		Node semicolon = Parser.addTerminalNode(TokenType.SEMICOLON, false);
 		variableNode.addChild(semicolon);
 
 		return variableNode;

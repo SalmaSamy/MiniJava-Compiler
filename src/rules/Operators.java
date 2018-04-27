@@ -8,19 +8,20 @@ import sentax_Analyzer.Node;
 import sentax_Analyzer.Parser;
 
 public class Operators {
-	
-	public static Node valid(){
+
+	public static Node valid() {
 		ArrayList<String> operators = new ArrayList<String>(
-				Arrays.asList("&&","||","!","==","!=",">","<","<=",">=","+","-","*","/"));
-		
+				Arrays.asList("&&", "||", "!", "==", "!=", ">", "<", "<=", ">=", "+", "-", "*", "/"));
+
 		Node operator = new Node("Operator");
 		Token token = Parser.getCurToken();
-		for(String op : operators){
-			if(op.equals(token.value)){
+		for (String op : operators) {
+			if (op.equals(token.value)) {
 				operator.addChild(new Node(op));
 				return operator;
 			}
 		}
+		
 		return null;
 	}
 

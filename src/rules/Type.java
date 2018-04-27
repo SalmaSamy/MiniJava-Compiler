@@ -23,6 +23,7 @@ public class Type {
 				return node;
 			}
 		}
+		
 		return null;
 	}
 }

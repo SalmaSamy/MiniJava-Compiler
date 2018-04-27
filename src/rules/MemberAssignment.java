@@ -13,41 +13,50 @@ public class MemberAssignment {
 	public static Node valid() {
 		Node assignment = new Node("MemberAssignment");
 
-		Node idNode = Parser.addTerminalNode(TokenType.ID);
+		Node idNode = Parser.addTerminalNode(TokenType.ID, true);
 		if (idNode == null)
 			return null;
 		assignment.addChild(idNode);
 
 		// SquareEx = “[“ Expression “]” | e
-		Node LSQUARE = Parser.addTerminalNode(TokenType.LEFT_SQUARE_B);
+		
+		Node LSQUARE = Parser.addTerminalNode(TokenType.LEFT_SQUARE_B, true);
+		
 		if (LSQUARE != null) {
 			assignment.addChild(LSQUARE);
 
 			Node expression = Expression.valid();
-			if (expression == null)
-				return null;
 			assignment.addChild(expression);
+			
+			if (expression.isException())
+				return assignment;
+			
 
-			Node RSQUARE = Parser.addTerminalNode(TokenType.RIGHT_SQUARE_B);
-			if (RSQUARE == null)
-				return null;
+			Node RSQUARE = Parser.addTerminalNode(TokenType.RIGHT_SQUARE_B, false);
 			assignment.addChild(RSQUARE);
+			
+			if (RSQUARE.isException())
+				return assignment;
 		} else
 		Parser.index--;
 
-		Node equal = Parser.addTerminalNode(TokenType.ASSIGNMENT);
-		if (equal == null)
-			return null;
+
+		Node equal = Parser.addTerminalNode(TokenType.ASSIGNMENT, false);
 		assignment.addChild(equal);
-
+		
+		if (equal.isException())
+			return null;
+	
 		Node expression = Expression.valid();
-		if (expression == null)
-			return null;
 		assignment.addChild(expression);
+		
+		if (expression.isException())
+			return assignment;
+		
+		
 
-		Node semicolon = Parser.addTerminalNode(TokenType.SEMICOLON);
-		if (semicolon == null)
-			return null;
+
+		Node semicolon = Parser.addTerminalNode(TokenType.SEMICOLON, false);
 		assignment.addChild(semicolon);
 
 		return assignment;

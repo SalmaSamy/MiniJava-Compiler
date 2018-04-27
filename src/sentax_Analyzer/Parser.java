@@ -17,7 +17,7 @@ public class Parser {
 		for (Token token : t) {
 			if (token.type == TokenType.EOL || token.type == TokenType.S_COMMENTS || token.type == TokenType.M_COMMENTS)
 				continue;
-
+			
 			tokens.add(token);
 		}
 	}
@@ -41,8 +41,12 @@ public class Parser {
 	// print leaf nodes only.
 	public static void print(Node cur) {
 
-		if (cur.isLeaf() && !cur.isEpsilon())
-			System.out.print(cur.getName() + " ");
+		if (cur.isLeaf() && !cur.isEpsilon()) {
+			if (cur.isException())
+				System.out.println("\nException: " + cur.getName());
+			else
+				System.out.print(cur.getName() + " ");
+		}
 
 		for (Node node : cur.getChildren()) {
 			print(node);
@@ -54,12 +58,24 @@ public class Parser {
 		System.out.println(Parser.tokens.get(index).type.name());
 	}
 
-	public static Node addTerminalNode(TokenType expected) {
+	public static Node addTerminalNode(TokenType expected, boolean optional) {
 		Token token = Parser.getCurToken();
 		// TODO Analyzer.intdex--
 
-		if (token == null || token.type != expected)
-			return null;
+		if (token == null || token.type != expected) {
+			if (optional)
+				return null;
+
+			if (token == null) {
+				Node ret = new Node("Expected More tokens");
+				ret.setException(true);
+				return ret;
+			}
+
+			Node ret = new Node("Expected: " + expected.name() + " found: " + token.value);
+			ret.setException(true);
+			return ret;
+		}
 
 		Node idNode = new Node(expected.name());
 		Node terminalNode = new Node(token.value);

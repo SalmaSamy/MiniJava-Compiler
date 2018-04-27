@@ -15,12 +15,11 @@ class Something {
 	}
 	
 	static boolean OK(int x, int y, boolean is) {
-		if (this.length)
+		if (this.length == 5)
 			return true;
 			
-		if (x == 5) {
-			x = Parser.parse();
+		if (x + x == 5) {
+			Parser.parse();
 		}
-		return true;
 	}
 }
