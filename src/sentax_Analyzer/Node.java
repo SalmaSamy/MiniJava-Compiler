@@ -8,26 +8,33 @@ public class Node {
 	private boolean isLeaf;
 	private boolean isEpsilon;
 	private boolean isException;
-	
+
 	public Node(String n) {
 		this.name = n;
 		setException(false);
 		setLeaf(true);
 		setEpsilon(false);
 	}
-	
+
+	public Node(String n, boolean isEpsilon) {
+		this.name = n;
+		setException(false);
+		setLeaf(true);
+		setEpsilon(isEpsilon);
+	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	public String getName() {
 		return name;
 	}
-	
+
 	public void addChild(Node node) {
 		if (node.isException())
 			this.setException(true);
-		
+
 		children.add(node);
 		setLeaf(false);
 	}
@@ -43,11 +50,11 @@ public class Node {
 	public void setLeaf(boolean isLeaf) {
 		this.isLeaf = isLeaf;
 	}
-	
+
 	public boolean isEpsilon() {
 		return isEpsilon;
 	}
-	
+
 	public void setEpsilon(boolean isEpsilon) {
 		this.isEpsilon = isEpsilon;
 	}
@@ -55,10 +62,11 @@ public class Node {
 	public boolean isException() {
 		return isException;
 	}
-	
+
 	public void setException(boolean isException) {
 		this.isException = isException;
 	}
+
 	public static boolean valid(Node node) {
 		return !(node == null || node.isException());
 	}

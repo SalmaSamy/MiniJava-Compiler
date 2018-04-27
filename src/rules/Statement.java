@@ -8,12 +8,11 @@ public class Statement {
 
 	/*
 	 * Statement = "{" Statments "}" | IfCondition | While | SysOut |
-	 * memberAssignment 
-	 * Statments = Statement Statments | e
+	 * memberAssignment Statments = Statement Statments | e
 	 */
 
 	public static Node valid() {
-		Node statement = new Node("Statment");
+		Node statement = new Node("Statment", true);
 
 		// ifCondition
 		Node ifCondition = IfCondition.valid();
@@ -50,38 +49,38 @@ public class Statement {
 
 		// "{" Statments "}"
 		Node LCurl = Parser.addTerminalNode(TokenType.LEFT_CURLY_B, true);
-		
-		
+
 		if (LCurl != null) {
 			statement.addChild(LCurl);
 
 			// Statments = Statement Statments | e
 			int oldIndex = Parser.index;
-			Node statements = new Node("Statements");
+			Node statements = new Node("Statements", true);
+			
 			while (true) {
 				Node singleStatement = Statement.valid();
 				if (singleStatement == null) {
 					Parser.index = oldIndex;
 					break;
 				}
-				
+
 				statements.addChild(singleStatement);
 				if (singleStatement.isException()) {
 					statement.addChild(statements);
 					return statement;
 				}
-				
+
 				oldIndex = Parser.index;
 			}
 			statement.addChild(statements);
 
 			Node RCurl = Parser.addTerminalNode(TokenType.RIGHT_CURLY_B, false);
 			statement.addChild(RCurl);
-			
+
 			return statement;
 		}
 		Parser.index--;
-
+		
 		return null;
 	}
 }

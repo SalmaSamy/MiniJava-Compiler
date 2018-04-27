@@ -32,9 +32,23 @@ public class Term {
 				return term;
 			}
 		}
-
-		// "(" Expression ")"
 		Parser.index--;
+
+		// "!" Expression
+
+		Node not = Parser.addTerminalNode(TokenType.NOT, true);
+
+		if (not != null) {
+			term.addChild(not);
+			
+			Node expression = Expression.valid();
+			term.addChild(expression);
+			
+			return term;
+		}
+		--Parser.index;
+		
+		// "(" Expression ")"
 		Node LRound = Parser.addTerminalNode(TokenType.LEFT_ROUND_B, true);
 		if (LRound != null) {
 			term.addChild(LRound);
@@ -85,18 +99,18 @@ public class Term {
 
 		Node LSQUARE = Parser.addTerminalNode(TokenType.LEFT_SQUARE_B, false);
 		term.addChild(LSQUARE);
-		
+
 		if (!LSQUARE.isException()) {
-		
+
 			Node expression = Expression.valid();
 			term.addChild(expression);
-			
+
 			if (expression.isException())
 				return term;
-			
+
 			Node RSQUARE = Parser.addTerminalNode(TokenType.RIGHT_SQUARE_B, false);
 			term.addChild(RSQUARE);
-			
+
 			return term;
 		}
 

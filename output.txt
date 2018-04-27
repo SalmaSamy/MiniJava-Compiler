@@ -1,4 +1,3 @@
-No more tokens
 class Main { 
 public static void main ( String [ ] Identifier ) { 
 x = true ; 
@@ -16,6 +15,9 @@ if ( this . length ) x = x + 1 ;
 if ( x == 5 ) { 
 x = Parser . parse ( ) ; 
 } 
-return true ; 
+if ( ! 3 + 5 ) { 
 } 
+if ( 1 ) { 
 } 
+while ( true ) while ( true && x == 3 ) if ( true ) if ( ! false ) 
+Exception: Syntax Error: No statement for if

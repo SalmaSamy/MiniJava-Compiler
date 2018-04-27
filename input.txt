@@ -25,6 +25,20 @@ class Something {
 		if (x == 5) {
 			x = Parser.parse();
 		}
+		
+		if (!3 + 5) {
+			
+		}
+		if (1) {
+			
+		}
+		
+		while (true)
+		
+		while(true && x == 3)
+			if (true)
+				if (!false)
+		
 		return true;
 	}
 }
