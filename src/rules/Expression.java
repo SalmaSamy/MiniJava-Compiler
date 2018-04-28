@@ -7,8 +7,9 @@ import sentax_Analyzer.Parser;
 public class Expression {
 
 	/*
-	 * Expression = Term LaLa OperatorSide LaLa = "." AfterDot | "[" Expression
-	 * "]" | e OperatorSide = Operators Expression | e
+	 * Expression = Term LaLa OperatorSide
+	 * LaLa = "." AfterDot | "[" Expression "]" | e
+	 * OperatorSide = Operators Expression | e
 	 * 
 	 * AfterDot = "length” | Identifier "(" ArgumentParameter ")"
 	 */
@@ -32,25 +33,15 @@ public class Expression {
 			Node functionCall = FunctionCall.valid();
 			if (functionCall != null) {
 				expression.addChild(functionCall);
-<<<<<<< HEAD
-			} else {
-				--Parser.index;
-
-=======
 			}
 			else{
 				--Parser.index;
->>>>>>> 0539365a71dc943231a79e2b253241f5f29af2f3
 				// .length
 				Node len = Parser.addTerminalNode(TokenType.LENGTH, false);
 				expression.addChild(len);
 			}
-<<<<<<< HEAD
-		} else
-=======
 		}
 		else
->>>>>>> 0539365a71dc943231a79e2b253241f5f29af2f3
 			--Parser.index;
 
 		// [expression]
@@ -67,7 +58,8 @@ public class Expression {
 			Node RSquare = Parser.addTerminalNode(TokenType.RIGHT_SQUARE_B, false);
 			expression.addChild(RSquare);
 
-		} else
+		}
+		else
 			--Parser.index;
 
 		// operator expression
@@ -78,7 +70,8 @@ public class Expression {
 
 			Node opExpression = Expression.valid();
 			expression.addChild(opExpression);
-		} else
+		}
+		else
 			--Parser.index;
 
 		return expression;

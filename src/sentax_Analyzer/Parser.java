@@ -15,7 +15,7 @@ public class Parser {
 
 		// remove \n
 		for (Token token : t) {
-			if (token.type == TokenType.EOL)
+			if (token.type == TokenType.EOL || token.type == TokenType.S_COMMENTS || token.type == TokenType.M_COMMENTS)
 				continue;
 
 			tokens.add(token);
@@ -63,19 +63,10 @@ public class Parser {
 	public static Node addTerminalNode(TokenType expected, boolean optional) {
 		Node idNode = new Node(expected.name());
 		Token token = Parser.getCurToken();
-		int cnt = 0;
-
-		while (token != null && (token.type == TokenType.S_COMMENTS || token.type == TokenType.M_COMMENTS)) {
-			idNode.addChild(new Node(token.value));
-			token = Parser.getCurToken();
-			++cnt;
-		}
 
 		if (token == null || token.type != expected) {
-			if (optional) {
-				index -= cnt;
+			if (optional)
 				return null;
-			}
 
 			if (token == null) {
 				Node ret = new Node("Expected More tokens");

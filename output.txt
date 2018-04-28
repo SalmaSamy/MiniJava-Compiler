@@ -1,13 +1,13 @@
 No more tokens
-/* this is a comment */ class HelloWorld { 
+class HelloWorld { 
 public static void main ( String [ ] args ) { 
 System.out.println ( new BinaryClass ( ) . binarySearch ( 10 ) ) ; 
-// this is a comment } 
+} 
 } 
 class BinaryNode extends BinaryClass { 
 float [ ] data ; 
 int size ; 
-// this is a comment /* this is a comment */ // this is a comment } 
+} 
 class BinaryClass { 
 float [ ] data ; 
 int size ; 
@@ -15,7 +15,7 @@ BinaryClass ( ) {
 data = new float [ 5 ] ; 
 data [ 0 ] = 1 ; 
 data [ 1 ] = 2 ; 
-// this is a comment /* this is a comment */ /* this is a comment */ data [ 2 ] = 3 ; 
+data [ 2 ] = 3 ; 
 data [ 3 ] = 4 ; 
 data [ 4 ] = 5 ; 
 } 
