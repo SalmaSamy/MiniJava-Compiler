@@ -9,10 +9,15 @@ import sentax_Analyzer.Node;
 import sentax_Analyzer.Parser;
 
 public class Constructor {
+	
+	/*
+	 * ConstructorDeclaration = ("public" | "private" | "protected") Identifier
+	 * "(" MethodParameters ")" "{" Variables Stms "}" 
+	 */
 
 	public static Node valid() {
 		int oldIndex = Parser.index;
-		Node constructor = new Node("ConstructorDeclaration");
+		Node constructor = new Node("Constructor");
 
 		ArrayList<TokenType> accessType = new ArrayList<>(
 				Arrays.asList(TokenType.PUBLIC, TokenType.PRIVATE, TokenType.PROTECTED));

@@ -1,44 +1,57 @@
-class Main {
-	public static void main ( String [] Identifier ) {
-		x = true;
-		a[i] = this.length;
+class HelloWorld
+{
+	public static void main(String[] args) {
+		System.out.println(new BinaryClass().binarySearch(10));
 		
-		a[i] = this.len(3, true);
-		
-		x = x.get();
 	}
+}
+class BinaryNode extends BinaryClass
+{
+	float[] data;
+    int size;
 }
 
-class Something {
-	public static int Main() {
-		return x;
-		// this should be ignored
+class BinaryClass
+{
+	float[] data;
+    int size;
+
+	BinaryClass ()
+	{
+		data = new float[5];
+		data[0] = 1;
+		data[1] = 2;
+		data[2] = 3;
+		data[3] = 4;
+		data[4] = 5;
+		
 	}
 	
-	static boolean OK(int x, int y, boolean is) {
-		if (this.length)
-			x = x + 1;
-		/*
-		This should also be ignored
-		*/
-		
-		if (x == 5) {
-			x = Parser.parse();
-		}
-		
-		if (!3 + 5) {
-			
-		}
-		if (1) {
-			
-		}
-		
-		while (true)
-		
-		while(true && x == 3)
-			if (true)
-				if (!false)
-		
+	public boolean init ()
+	{
+		data = new float[5];
+		data[0] = 1;
+		data[1] = 2;
+		data[2] = 3;
+		data[3] = 4;
+		data[4] = 5;
 		return true;
 	}
+    public boolean binarySearch(int key) 
+    {
+         int low;
+         int high;
+         int middle;
+		 boolean res;
+		 low = 0;
+		 high = size -1;
+         while(high < low) {
+              middle =low + high;
+             
+        }
+        res= false;
+		return res;
+   }
 }
+	
+	

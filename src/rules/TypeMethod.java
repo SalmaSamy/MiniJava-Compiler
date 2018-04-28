@@ -40,7 +40,7 @@ public class TypeMethod {
 		} else
 			Parser.index--;
 
-		Node typeNode = Type.valid();
+		Node typeNode = Type.valid(true);
 		if (typeNode == null)
 			return null;
 
