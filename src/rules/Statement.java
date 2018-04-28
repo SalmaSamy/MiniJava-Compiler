@@ -41,7 +41,6 @@ public class Statement {
 		// MemberAssignment
 		Node memberAssignment = MemberAssignment.valid();
 		if (memberAssignment != null) {
-
 			statement.addChild(memberAssignment);
 			return statement;
 		}

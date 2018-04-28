@@ -34,12 +34,12 @@ public class Expression {
 			if (functionCall != null) {
 				expression.addChild(functionCall);
 			}
-			--Parser.index;
-
-			// .length
-			Node len = Parser.addTerminalNode(TokenType.LENGTH, false);
-			expression.addChild(len);
-
+			else{
+				--Parser.index;
+				// .length
+				Node len = Parser.addTerminalNode(TokenType.LENGTH, false);
+				expression.addChild(len);
+			}
 		}
 		else
 			--Parser.index;

@@ -22,7 +22,6 @@ public class MainClass {
 				TokenType.LEFT_CURLY_B };
 
 		for (TokenType tt : mainTerminals) {
-			// System.out.println(tt.name());
 			Node current = Parser.addTerminalNode(tt, false);
 			mainClass.addChild(current);
 			
@@ -53,6 +52,7 @@ public class MainClass {
 			oldIndex = Parser.index;
 		}
 		mainClass.addChild(statements);
+		
 
 		TokenType[] mainTerminals2 = { TokenType.RIGHT_CURLY_B, TokenType.RIGHT_CURLY_B };
 		for (TokenType tt : mainTerminals2) {
