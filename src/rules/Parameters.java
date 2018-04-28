@@ -5,6 +5,11 @@ import sentax_Analyzer.Node;
 import sentax_Analyzer.Parser;
 
 public class Parameters {
+	
+	/*
+	 * Parameters = Type Identifier MoreParameters | e
+	 *	MoreParameters = "," Type Identifier MoreParameters | e
+	 */
 
 	public static Node valid() {
 		Node parameters = new Node("Parameters");
@@ -20,7 +25,7 @@ public class Parameters {
 				parameters.addChild(commaNode);
 			}
 
-			Node typeParameter = Type.valid();
+			Node typeParameter = Type.valid(true);
 			
 			if (typeParameter == null) {
 				--Parser.index;

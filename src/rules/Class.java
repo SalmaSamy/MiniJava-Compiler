@@ -20,7 +20,7 @@ public class Class {
 	public static Node valid() {
 
 		int oldIndex = Parser.index;
-		Node classDecliration = new Node("ClassDeclaration");
+		Node classDecliration = new Node("Class");
 
 		Node classNode = Parser.addTerminalNode(TokenType.CLASS, true);
 		if (classNode == null) {

@@ -5,11 +5,17 @@ import sentax_Analyzer.Node;
 import sentax_Analyzer.Parser;
 
 public class VariableDecliration {
+	
+	/*
+	 * VarDeclaration = Type Identifier  Assignment  Vars ";" 
+	 * Vars =  “,” Identifier Assignment Vars | e
+	 * Assignment = “=” Expression | e
+	 */
 
 	public static Node valid() {
 		Node variableNode = new Node("Variable Declaration");
 
-		Node typeVariable = Type.valid();
+		Node typeVariable = Type.valid(true);
 		
 		if (typeVariable == null)
 			return null;

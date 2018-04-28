@@ -34,19 +34,6 @@ public class Term {
 		}
 		Parser.index--;
 
-		// "!" Expression
-
-		Node not = Parser.addTerminalNode(TokenType.NOT, true);
-
-		if (not != null) {
-			term.addChild(not);
-			
-			Node expression = Expression.valid();
-			term.addChild(expression);
-			
-			return term;
-		}
-		--Parser.index;
 		
 		// "(" Expression ")"
 		Node LRound = Parser.addTerminalNode(TokenType.LEFT_ROUND_B, true);
@@ -64,9 +51,9 @@ public class Term {
 
 			return term;
 		}
+		Parser.index--;
 
 		// new
-		Parser.index--;
 		Node newNode = Parser.addTerminalNode(TokenType.NEW, false);
 		term.addChild(newNode);
 
@@ -86,7 +73,8 @@ public class Term {
 		}
 		Parser.index--;
 
-		Node type = Type.valid();
+		// Type "[" Expression "]"
+		Node type = Type.valid(false);
 
 		if (type == null) {
 			term.setName("Syntax error");
@@ -94,8 +82,6 @@ public class Term {
 			return term;
 		}
 		term.addChild(type);
-
-		// Type "[" Expression "]"
 
 		Node LSQUARE = Parser.addTerminalNode(TokenType.LEFT_SQUARE_B, false);
 		term.addChild(LSQUARE);
@@ -113,8 +99,8 @@ public class Term {
 
 			return term;
 		}
-
 		Parser.index--;
+		
 		return term;
 	}
 }

@@ -1,15 +1,4 @@
-class Main { 
-public static void main ( String [ ] Identifier ) { 
-x = true ; 
-a [ i ] = this . length ; 
-a [ i ] = this . len ( 3 , true ) ; 
-x = x . get ( ) ; 
-} 
-} 
-class Something { 
-public static int Main ( ) { 
-return x ; 
-} 
-static boolean OK ( int x , int y , boolean is ) { 
-int x 
-Exception: Expected: SEMICOLON found: if
+class HelloWorld { 
+public static void main ( String [ ] args ) { 
+System.out.println ( new BinaryClass ( ) . binarySearch ( 10 ) 
+Exception: Expected: LENGTH found: )
