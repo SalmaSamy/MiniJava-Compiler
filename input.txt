@@ -4,7 +4,6 @@ class HelloWorld
 	public static void main(String[] args) {
 		System.out.println(new BinaryClass().binarySearch(10));
 		// this is a comment
-		x.x();
 		
 	}
 }
@@ -65,9 +64,6 @@ class BinaryClass
         res= false;
         if (this.length == 5)
 			c = new int[4];
-			
-		if (x + x)
-			x.x();
 		
 			
 		return res;
