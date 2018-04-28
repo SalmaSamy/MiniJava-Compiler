@@ -11,8 +11,8 @@ import sentax_Analyzer.Parser;
 public class Term {
 
 	/*
-	 * Term = "(" Expression ")" | "new" AfterNew Identifier | <INTEGER_LITERAL>
-	 * | <FLOAT_LITERAL> | "true" | "false" | "this"
+	 * Term = "(" Expression ")" | "new" AfterNew | Identifier | <INTEGER_LITERAL>
+	 * | <FLOAT_LITERAL> | <FLOAT_LITERAL> | "true" | "false" | "this"
 	 * 
 	 * AfterNew = Type "[" Expression "]" | Identifier "(" ArgumentParameter ")"
 	 */
@@ -22,7 +22,8 @@ public class Term {
 
 		// Terminals
 		ArrayList<TokenType> terminals = new ArrayList<TokenType>(Arrays.asList(TokenType.ID,
-				TokenType.INTEGRAL_LITERAL, TokenType.FLOAT_LITERAL, TokenType.TRUE, TokenType.FALSE, TokenType.THIS));
+				TokenType.INTEGRAL_LITERAL, TokenType.FLOAT_LITERAL, TokenType.TRUE, TokenType.FALSE,
+				TokenType.THIS, TokenType.STRING_LITERAL));
 
 		Token token = Parser.getCurToken();
 		for (TokenType tt : terminals) {
