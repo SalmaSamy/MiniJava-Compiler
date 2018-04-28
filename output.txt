@@ -1,50 +1,5 @@
-No more tokens
-class HelloWorld { 
+/* this is a comment */ class HelloWorld { 
 public static void main ( String [ ] args ) { 
 System.out.println ( new BinaryClass ( ) . binarySearch ( 10 ) ) ; 
-} 
-} 
-class BinaryNode extends BinaryClass { 
-float [ ] data ; 
-int size ; 
-} 
-class BinaryClass { 
-float [ ] data ; 
-int size ; 
-BinaryClass ( ) { 
-data = new float [ 5 ] ; 
-data [ 0 ] = 1 ; 
-data [ 1 ] = 2 ; 
-data [ 2 ] = 3 ; 
-data [ 3 ] = 4 ; 
-data [ 4 ] = 5 ; 
-} 
-public boolean init ( ) { 
-data = new float [ 5 ] ; 
-data [ 0 ] = 1 ; 
-data [ 1 ] = 2 ; 
-data [ 2 ] = 3 ; 
-data [ 3 ] = 4 ; 
-data [ 4 ] = 5 ; 
-return true ; 
-} 
-public boolean binarySearch ( int key ) { 
-int low ; 
-int high ; 
-int middle ; 
-boolean res ; 
-low = 0 ; 
-high = size - 1 ; 
-while ( high < low ) { 
-middle = low + high ; 
-} 
-res = false ; 
-if ( this . length == 5 ) c = new int [ 4 ] ; 
-if ( x + x ) 
-Exception: Syntax Error: No statement for if
-=======
-if ( y - a [ i + 6 ] * 3 == x + y . length - 3 ) System.out.println ( "hello 1" ) ; 
-if ( y [ 1 ] != 5 ) x = 5 ; 
-else x [ 0 ] = 10 ; 
-} 
-} 
+
+Exception: Expected: RIGHT_CURLY_B found: x

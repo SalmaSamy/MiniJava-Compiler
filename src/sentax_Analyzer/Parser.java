@@ -13,9 +13,9 @@ public class Parser {
 	public Parser(ArrayList<Token> t) {
 		tokens = new ArrayList<Token>();
 
-		// remove \n and comments.
+		// remove \n
 		for (Token token : t) {
-			if (token.type == TokenType.EOL || token.type == TokenType.S_COMMENTS || token.type == TokenType.M_COMMENTS)
+			if (token.type == TokenType.EOL)
 				continue;
 
 			tokens.add(token);
@@ -49,8 +49,7 @@ public class Parser {
 			if (cur.getName().equals(";") || cur.getName().equals("}") || cur.getName().equals("{"))
 				System.out.println();
 		}
-		
-		
+
 		for (Node node : cur.getChildren()) {
 			print(node);
 		}
@@ -62,11 +61,21 @@ public class Parser {
 	}
 
 	public static Node addTerminalNode(TokenType expected, boolean optional) {
+		Node idNode = new Node(expected.name());
 		Token token = Parser.getCurToken();
+		int cnt = 0;
+
+		while (token != null && (token.type == TokenType.S_COMMENTS || token.type == TokenType.M_COMMENTS)) {
+			idNode.addChild(new Node(token.value));
+			token = Parser.getCurToken();
+			++cnt;
+		}
 
 		if (token == null || token.type != expected) {
-			if (optional)
+			if (optional) {
+				index -= cnt;
 				return null;
+			}
 
 			if (token == null) {
 				Node ret = new Node("Expected More tokens");
@@ -79,7 +88,6 @@ public class Parser {
 			return ret;
 		}
 
-		Node idNode = new Node(expected.name());
 		Node terminalNode = new Node(token.value);
 		idNode.addChild(terminalNode);
 

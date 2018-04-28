@@ -7,7 +7,7 @@ public class Token {
 	public Pattern pattern;
 	public String value;
 	
-	Token() {
+	public Token() {
 		
 	}
 	Token(TokenType type, String regex) {

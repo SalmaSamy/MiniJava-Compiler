@@ -1,17 +1,45 @@
-/* HelloWorld.java */
-
+/* this is a comment */
 class HelloWorld
 {
 	public static void main(String[] args) {
+		System.out.println(new BinaryClass().binarySearch(10));
+		// this is a comment
+		x.x();
 		
-		if( y-a[i+6]*3  == x+y.length-3)
-		System.out.println("hello 1");
+	}
+}
+class BinaryNode extends BinaryClass
+{
+	float[] data;
+    int size;
+    		// this is a comment
+    /* this is a comment */
+    
+    		// this is a comment
+    
+}
+
+class BinaryClass
+{
+	float[] data;
+    int size;
+
+	BinaryClass ()
+	{
+		data = new float[5];
+		data[0] = 1;
+		data[1] = 2;
+				// this is a comment
+				/* this is a comment */
+				/* this is a comment */
+				
 		
-		if( y[1] != 5)
-		 x = 5;
-		else
-		 x [0]= 10;
-	}	
+		data[2] = 3;
+		data[3] = 4;
+		data[4] = 5;
+		
+	}
+	
 	public boolean init ()
 	{
 		data = new float[5];
@@ -45,3 +73,5 @@ class HelloWorld
 		return res;
    }
 }
+	
+	
