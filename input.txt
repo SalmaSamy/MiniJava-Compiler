@@ -16,6 +16,7 @@ class Something {
 	}
 	
 	static boolean OK(int x, int y, boolean is) {
+	int x
 		if (this.length)
 			x = x + 1;
 		/*
