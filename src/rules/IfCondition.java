@@ -38,7 +38,7 @@ public class IfCondition {
 		// Statement
 		Node statement = Statement.valid();
 		if (statement == null) {
-			statement = new Node("Syntax Error: No statement for if");
+			statement = new Node("Syntax Error: No valid statement for if");
 			statement.setException(true);
 			ifCondition.addChild(statement);
 			

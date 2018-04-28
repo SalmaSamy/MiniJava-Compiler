@@ -50,6 +50,13 @@ class BinaryClass
              
         }
         res= false;
+        if (this.length == 5)
+			c = new int[4];
+			
+		if (x + x)
+			x.x();
+		
+			
 		return res;
    }
 }
